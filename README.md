@@ -16,10 +16,10 @@ yarn # install dependencies
 
 # run it
 yarn start \
-  --lnd.adminmacaroonpath readonly.macaroon \
+  --lnd.macaroon readonly.macaroon \
   --lnd.rpccert lnd_rpc.crt \
   --lnd.rpcserver localhost:10009 \
-  --listen 4201
+  --port 4201
 
 # use it
 open http://localhost:4201
