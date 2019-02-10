@@ -22,10 +22,19 @@
 
 const fs = require('fs');
 const grpc = require('grpc');
-const lnrpc = grpc.load('rpc.proto').lnrpc;
+const loader = require('@grpc/proto-loader');
 const express = require('express');
-
 const program = require('commander');
+
+const definition = loader.loadSync('rpc.proto', {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true
+});
+const { lnrpc } = grpc.loadPackageDefinition(definition);
+
 program
     .description('plot a sankey diagram of the forwarding history')
     .option('--lnd.macaroon [base64|path]', 'Base64 encoded string or path to macaroon', process.env.LND_MACAROON || '~/.lnd/data/chain/bitcoin/testnet/readonly.macaroon')
